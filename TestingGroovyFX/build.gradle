@@ -1,0 +1,28 @@
+apply plugin:'groovy'
+
+project.ext.set('javafxHome', System.env['JAVAFX_HOME'])
+
+repositories { mavenCentral() }
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy-all:1.8.0'
+    compile 'org.groovyfx:groovyfx:8.0.0'
+    compile files("${javafxHome}/rt/lib/jfxrt.jar")
+}
+
+task run(type: JavaExec) {
+    main = 'helloGroovyFX'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task makeDirs(description:'make all dirs for project setugrp') << {
+    def sources = [sourceSets.main, sourceSets.test]
+    sources*.allSource*.srcDirs.flatten().each { File srcDir ->
+        println "making $srcDir"
+        srcDir.mkdirs()
+    }
+}
+
+task wrap(type:Wrapper, description:"create a gradlew") {
+    gradleVersion = '2.12'
+}
