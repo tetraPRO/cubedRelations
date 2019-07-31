@@ -28,7 +28,7 @@ def sum(n){//define method
 }//end method
 //this is an edit...something is changing....
 def tester = javax.swing.JOptionPane.showInputDialog(
-  "Enter an integer bewteen 0..9"
+  "Enter an integer bewteen:"
   )
 int num = Integer.parseInt("$tester")
 assert cubedBySumming(num) == num**3
